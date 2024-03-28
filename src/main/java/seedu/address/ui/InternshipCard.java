@@ -68,7 +68,8 @@ public class InternshipCard extends UiPart<Region> {
         setStatusLabel(internship.getApplicationStatus());
         setDescriptionLabel(internship.getDescription());
         setLocationLabel(internship.getLocation().orElse(null));
-        setPocLabel(internship.getContactName().orElse(null), internship.getContactEmail().orElse(null), internship.getContactNumber().orElse(null));
+        setPocLabel(internship.getContactName().orElse(null), internship.getContactEmail().orElse(null),
+                internship.getContactNumber().orElse(null));
         setRemarkLabel(internship.getRemark());
 
     }

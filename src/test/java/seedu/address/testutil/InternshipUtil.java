@@ -31,13 +31,13 @@ public class InternshipUtil {
     public static String getInternshipDetails(Internship internship) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_COMPANY + " " + internship.getCompanyName().companyName + " ");
-        sb.append(PREFIX_CONTACT_NAME + " " + internship.getContactName().contactName + " ");
-        sb.append(PREFIX_CONTACT_EMAIL + " " + internship.getContactEmail().value + " ");
-        sb.append(PREFIX_CONTACT_NUMBER + " " + internship.getContactNumber().value + " ");
+        sb.append(PREFIX_CONTACT_NAME + " " + internship.getContactName().get().contactName + " ");
+        sb.append(PREFIX_CONTACT_EMAIL + " " + internship.getContactEmail().get().value + " ");
+        sb.append(PREFIX_CONTACT_NUMBER + " " + internship.getContactNumber().get().value + " ");
         sb.append(PREFIX_LOCATION + " " + internship.getLocation().toString() + " ");
         sb.append(PREFIX_STATUS + " " + internship.getApplicationStatus().toString() + " ");
         sb.append(PREFIX_DESCRIPTION + " " + internship.getDescription().description + " ");
-        sb.append(PREFIX_ROLE + " " + internship.getRole().role + " ");
+        sb.append(PREFIX_ROLE + " " + internship.getRole().get().role + " ");
 
         return sb.toString();
     }

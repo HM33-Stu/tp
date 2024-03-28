@@ -57,7 +57,8 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
         // Optional Fields
         ContactName poc = InternshipParserUtil.parseOptionalContactName(argMultimap.getValue(PREFIX_CONTACT_NAME));
         ContactEmail email = InternshipParserUtil.parseOptionalContactEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL));
-        ContactNumber phon = InternshipParserUtil.parseOptionalContactNumber(argMultimap.getValue(PREFIX_CONTACT_NUMBER));
+        ContactNumber phon = InternshipParserUtil.parseOptionalContactNumber(
+                argMultimap.getValue(PREFIX_CONTACT_NUMBER));
         Location loc = InternshipParserUtil.parseOptionalLocation(argMultimap.getValue(PREFIX_LOCATION));
         Role role = InternshipParserUtil.parseOptionalRole(argMultimap.getValue(PREFIX_ROLE));
         Remark remark = new Remark(""); // Add Command does not allow adding remarks immediately
