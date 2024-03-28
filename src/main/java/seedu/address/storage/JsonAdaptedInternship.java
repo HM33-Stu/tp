@@ -61,13 +61,13 @@ public class JsonAdaptedInternship {
      */
     public JsonAdaptedInternship(Internship source) {
         companyName = source.getCompanyName().companyName;
-        contactName = source.getContactName().contactName;
-        contactEmail = source.getContactEmail().value;
-        contactNumber = source.getContactNumber().value;
         applicationStatus = source.getApplicationStatus().toString();
-        location = source.getLocation().toString();
         description = source.getDescription().description;
-        role = source.getRole().role;
+        contactName = source.getContactName().isPresent() ? source.getContactName().get().contactName : null;
+        contactEmail = source.getContactEmail().isPresent() ? source.getContactEmail().get().value : null;
+        contactNumber = source.getContactNumber().isPresent() ? source.getContactNumber().get().value : null;
+        location = source.getLocation().toString().repeat(source.getLocation().isPresent() ? 1 : 0);
+        role = source.getRole().isPresent() ? source.getRole().get().role : null;
         remark = source.getRemark().value;
     }
 

@@ -41,8 +41,7 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
                 ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_CONTACT_NAME,
                         PREFIX_CONTACT_EMAIL, PREFIX_CONTACT_NUMBER, PREFIX_LOCATION, PREFIX_ROLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_CONTACT_NAME,
-                PREFIX_CONTACT_EMAIL, PREFIX_CONTACT_NUMBER, PREFIX_LOCATION, PREFIX_ROLE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InternshipAddCommand.MESSAGE_USAGE));
         }
@@ -50,14 +49,17 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_CONTACT_NAME,
                 PREFIX_CONTACT_EMAIL, PREFIX_CONTACT_NUMBER, PREFIX_LOCATION, PREFIX_ROLE);
 
+        // Mandatory Fields
         CompanyName com = InternshipParserUtil.parseCompanyName(argMultimap.getValue(PREFIX_COMPANY).get());
-        ContactName poc = InternshipParserUtil.parseContactName(argMultimap.getValue(PREFIX_CONTACT_NAME).get());
-        ContactEmail email = InternshipParserUtil.parseContactEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL).get());
-        ContactNumber phon = InternshipParserUtil.parseContactNumber(argMultimap.getValue(PREFIX_CONTACT_NUMBER).get());
-        Location loc = InternshipParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         ApplicationStatus status = InternshipParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
         Description desc = InternshipParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Role role = InternshipParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
+
+        // Optional Fields
+        ContactName poc = InternshipParserUtil.parseOptionalContactName(argMultimap.getValue(PREFIX_CONTACT_NAME));
+        ContactEmail email = InternshipParserUtil.parseOptionalContactEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL));
+        ContactNumber phon = InternshipParserUtil.parseOptionalContactNumber(argMultimap.getValue(PREFIX_CONTACT_NUMBER));
+        Location loc = InternshipParserUtil.parseOptionalLocation(argMultimap.getValue(PREFIX_LOCATION));
+        Role role = InternshipParserUtil.parseOptionalRole(argMultimap.getValue(PREFIX_ROLE));
         Remark remark = new Remark(""); // Add Command does not allow adding remarks immediately
 
         Internship internship = new Internship(com, poc, email, phon, loc, status, desc, role, remark);

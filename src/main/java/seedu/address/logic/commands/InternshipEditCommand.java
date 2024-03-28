@@ -108,20 +108,18 @@ public class InternshipEditCommand extends InternshipCommand {
 
         CompanyName updatedCompanyName = editInternshipDescriptor.getCompanyName()
                 .orElse(internshipToEdit.getCompanyName());
-        Location updatedLocation = editInternshipDescriptor.getLocation()
-                .orElse(internshipToEdit.getLocation());
         Description updatedDescription = editInternshipDescriptor.getDescription()
                 .orElse(internshipToEdit.getDescription());
-        Role updatedRole = editInternshipDescriptor.getRole().orElse(internshipToEdit
-                .getRole());
-        ContactName updatedContactName = editInternshipDescriptor.getContactName()
-                .orElse(internshipToEdit.getContactName());
-        ContactEmail updatedContactEmail = editInternshipDescriptor.getContactEmail()
-                .orElse(internshipToEdit.getContactEmail());
-        ContactNumber updatedContactNumber = editInternshipDescriptor.getContactNumber()
-                .orElse(internshipToEdit.getContactNumber());
         ApplicationStatus updatedApplicationStatus = editInternshipDescriptor.getApplicationStatus()
                 .orElse(internshipToEdit.getApplicationStatus());
+
+        Location updatedLocation = editInternshipDescriptor.getLocation()
+                .orElse(null);
+        Role updatedRole = editInternshipDescriptor.getRole().orElse(null);
+        ContactName updatedContactName = editInternshipDescriptor.getContactName().orElse(null);
+        ContactEmail updatedContactEmail = editInternshipDescriptor.getContactEmail().orElse(null);
+        ContactNumber updatedContactNumber = editInternshipDescriptor.getContactNumber().orElse(null);
+
         Remark updatedRemark = editInternshipDescriptor.getRemark().orElse(internshipToEdit.getRemark());
         return new Internship(updatedCompanyName, updatedContactName, updatedContactEmail, updatedContactNumber,
                 updatedLocation, updatedApplicationStatus, updatedDescription, updatedRole, updatedRemark);

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -51,21 +52,6 @@ public class InternshipParserUtil {
     }
 
     /**
-     * Parses a {@code String location} into a {@code Location}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code location} is invalid.
-     */
-    public static Location parseLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        if (!Location.isValidLocation(trimmedLocation)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
-        }
-        return new Location(trimmedLocation);
-    }
-
-    /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -82,6 +68,56 @@ public class InternshipParserUtil {
     }
 
     /**
+     * Parses a {@code String status} into a {@code ApplicationStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static ApplicationStatus parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        if (!ApplicationStatus.isValidApplicationStatus(trimmedStatus)) {
+            throw new ParseException(ApplicationStatus.MESSAGE_CONSTRAINTS);
+        }
+        return new ApplicationStatus(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a {@code Optional<String> location} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseOptionalLocation(Optional<String> location) throws ParseException {
+        if (location.isEmpty()) {
+            return null;
+        }
+        String trimmedLocation = location.get().trim();
+        if (trimmedLocation.isBlank()) {
+            return null;
+        }
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
      * Parses a {@code String role} into a {@code Role}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -90,6 +126,26 @@ public class InternshipParserUtil {
     public static Role parseRole(String role) throws ParseException {
         requireNonNull(role);
         String trimmedRole = role.trim();
+        if (!Role.isValidRole(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return new Role(trimmedRole);
+    }
+
+    /**
+     * Parses a {@code Optional<String> role} into a {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Role parseOptionalRole(Optional<String> role) throws ParseException {
+        if (role.isEmpty()) {
+            return null;
+        }
+        String trimmedRole = role.get().trim();
+        if (trimmedRole.isBlank()) {
+            return null;
+        }
         if (!Role.isValidRole(trimmedRole)) {
             throw new ParseException(Role.MESSAGE_CONSTRAINTS);
         }
@@ -112,6 +168,26 @@ public class InternshipParserUtil {
     }
 
     /**
+     * Parses a {@code Optional<String> contactName} into a {@code ContactName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code contactName} is invalid.
+     */
+    public static ContactName parseOptionalContactName(Optional<String> contactName) throws ParseException {
+        if (contactName.isEmpty()) {
+            return null;
+        }
+        String trimmedContactName = contactName.get().trim();
+        if (trimmedContactName.isBlank()) {
+            return null;
+        }
+        if (!ContactName.isValidContactName(trimmedContactName)) {
+            throw new ParseException(ContactName.MESSAGE_CONSTRAINTS);
+        }
+        return new ContactName(trimmedContactName);
+    }
+
+    /**
      * Parses a {@code String contactNumber} into a {@code ContactNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -120,6 +196,26 @@ public class InternshipParserUtil {
     public static ContactNumber parseContactNumber(String contactNumber) throws ParseException {
         requireNonNull(contactNumber);
         String trimmedContactNumber = contactNumber.trim();
+        if (!ContactNumber.isValidContactNumber(trimmedContactNumber)) {
+            throw new ParseException(ContactNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new ContactNumber(trimmedContactNumber);
+    }
+
+    /**
+     * Parses a {@code Optional<String> contactNumber} into a {@code ContactNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code contactNumber} is invalid.
+     */
+    public static ContactNumber parseOptionalContactNumber(Optional<String> contactNumber) throws ParseException {
+        if (contactNumber.isEmpty()) {
+            return null;
+        }
+        String trimmedContactNumber = contactNumber.get().trim();
+        if (trimmedContactNumber.isBlank()) {
+            return null;
+        }
         if (!ContactNumber.isValidContactNumber(trimmedContactNumber)) {
             throw new ParseException(ContactNumber.MESSAGE_CONSTRAINTS);
         }
@@ -142,18 +238,23 @@ public class InternshipParserUtil {
     }
 
     /**
-     * Parses a {@code String status} into a {@code ApplicationStatus}.
+     * Parses a {@code Optional<String> contactEmail} into a {@code ContactEmail}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code status} is invalid.
+     * @throws ParseException if the given {@code contactEmail} is invalid.
      */
-    public static ApplicationStatus parseStatus(String status) throws ParseException {
-        requireNonNull(status);
-        String trimmedStatus = status.trim();
-        if (!ApplicationStatus.isValidApplicationStatus(trimmedStatus)) {
-            throw new ParseException(ApplicationStatus.MESSAGE_CONSTRAINTS);
+    public static ContactEmail parseOptionalContactEmail(Optional<String> contactEmail) throws ParseException {
+        if (contactEmail.isEmpty()) {
+            return null;
         }
-        return new ApplicationStatus(trimmedStatus);
+        String trimmedContactEmail = contactEmail.get().trim();
+        if (trimmedContactEmail.isBlank()) {
+            return null;
+        }
+        if (!ContactEmail.isValidContactEmail(trimmedContactEmail)) {
+            throw new ParseException(ContactEmail.MESSAGE_CONSTRAINTS);
+        }
+        return new ContactEmail(trimmedContactEmail);
     }
 
     /**

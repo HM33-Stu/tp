@@ -53,20 +53,20 @@ public class InternshipEditCommandParser implements InternshipParser<InternshipE
                     .getValue(PREFIX_COMPANY).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_NAME).isPresent()) {
-            editInternshipDescriptor.setContactName(InternshipParserUtil.parseContactName(argMultimap
-                    .getValue(PREFIX_CONTACT_NAME).get()));
+            editInternshipDescriptor.setContactName(InternshipParserUtil.parseOptionalContactName(argMultimap
+                    .getValue(PREFIX_CONTACT_NAME)));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_NUMBER).isPresent()) {
-            editInternshipDescriptor.setContactNumber(InternshipParserUtil.parseContactNumber(argMultimap
-                    .getValue(PREFIX_CONTACT_NUMBER).get()));
+            editInternshipDescriptor.setContactNumber(InternshipParserUtil.parseOptionalContactNumber(argMultimap
+                    .getValue(PREFIX_CONTACT_NUMBER)));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_EMAIL).isPresent()) {
-            editInternshipDescriptor.setContactEmail(InternshipParserUtil.parseContactEmail(argMultimap
-                    .getValue(PREFIX_CONTACT_EMAIL).get()));
+            editInternshipDescriptor.setContactEmail(InternshipParserUtil.parseOptionalContactEmail(argMultimap
+                    .getValue(PREFIX_CONTACT_EMAIL)));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editInternshipDescriptor.setLocation(InternshipParserUtil.parseLocation(argMultimap
-                    .getValue(PREFIX_LOCATION).get()));
+            editInternshipDescriptor.setLocation(InternshipParserUtil.parseOptionalLocation(argMultimap
+                    .getValue(PREFIX_LOCATION)));
         }
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             editInternshipDescriptor.setApplicationStatus(InternshipParserUtil.parseStatus(argMultimap
@@ -77,8 +77,8 @@ public class InternshipEditCommandParser implements InternshipParser<InternshipE
                     .getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
-            editInternshipDescriptor.setRole(InternshipParserUtil.parseRole(argMultimap
-                    .getValue(PREFIX_ROLE).get()));
+            editInternshipDescriptor.setRole(InternshipParserUtil.parseOptionalRole(argMultimap
+                    .getValue(PREFIX_ROLE)));
         }
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             editInternshipDescriptor.setRemark(InternshipParserUtil.parseRemark(argMultimap

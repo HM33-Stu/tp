@@ -3,6 +3,7 @@ package seedu.address.model.internship;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -30,8 +31,7 @@ public class Internship {
     public Internship(CompanyName companyName, ContactName contactName, ContactEmail contactEmail,
                       ContactNumber contactNumber, Location location, ApplicationStatus applicationStatus,
                       Description description, Role role, Remark remark) {
-        requireAllNonNull(companyName, contactName, contactEmail, contactNumber, location, applicationStatus,
-                description, role);
+        requireAllNonNull(companyName, applicationStatus, description);
         this.companyName = companyName;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
@@ -46,23 +46,6 @@ public class Internship {
     public CompanyName getCompanyName() {
         return companyName;
     }
-
-    public ContactName getContactName() {
-        return contactName;
-    }
-
-    public ContactEmail getContactEmail() {
-        return contactEmail;
-    }
-
-    public ContactNumber getContactNumber() {
-        return contactNumber;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
     public ApplicationStatus getApplicationStatus() {
         return applicationStatus;
     }
@@ -71,8 +54,24 @@ public class Internship {
         return description;
     }
 
-    public Role getRole() {
-        return role;
+    public Optional<ContactName> getContactName() {
+        return Optional.ofNullable(contactName);
+    }
+
+    public Optional<ContactEmail> getContactEmail() {
+        return Optional.ofNullable(contactEmail);
+    }
+
+    public Optional<ContactNumber> getContactNumber() {
+        return Optional.ofNullable(contactNumber);
+    }
+
+    public Optional<Location> getLocation() {
+        return Optional.ofNullable(location);
+    }
+
+    public Optional<Role> getRole() {
+        return Optional.ofNullable(role);
     }
 
     public Remark getRemark() {
