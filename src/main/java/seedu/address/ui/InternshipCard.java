@@ -82,8 +82,16 @@ public class InternshipCard extends UiPart<Region> {
      * @param contactNumber phone number of the contact person under the Internship entry
      */
     private void setPocLabel(ContactName contactName, ContactEmail contactEmail, ContactNumber contactNumber) {
-        String stringToSet = "POC: " + contactName.toString() + " | "
-                + contactEmail.toString() + " | " + contactNumber.toString();
+        String contactNameStr = (contactName != null) ? contactName.toString() : "";
+        String contactEmailStr = (contactEmail != null) ? contactEmail.toString() : "";
+        String contactNumberStr = (contactNumber != null) ? contactNumber.toString() : "";
+
+        String stringToSet = "POC: " + String.join(" | ", contactNameStr, contactEmailStr, contactNumberStr);
+
+        if (contactName == null && contactEmail == null && contactNumber == null) {
+            stringToSet = "No POC found";
+        }
+
         poc.setText(stringToSet);
     }
 
@@ -93,8 +101,13 @@ public class InternshipCard extends UiPart<Region> {
      * @param loc location of the internship
      */
     private void setLocationLabel(Location loc) {
-        this.loc.setText(loc.toString());
+        if (loc != null) {
+            this.loc.setText(loc.toString());
+        } else {
+            this.loc.setText(""); // Set an empty string or a default value when loc is null
+        }
     }
+
 
     /**
      * Sets the description label to the given description.
@@ -112,7 +125,12 @@ public class InternshipCard extends UiPart<Region> {
      * @param role role of the internship under the Internship entry
      */
     private void setCompanyNameAndRoleLabel(CompanyName companyName, Role role) {
-        String stringToSet = companyName.toString() + " -- " + role.toString();
+        String stringToSet;
+        if (role != null) {
+            stringToSet = companyName.toString() + " -- " + role.toString();
+        } else {
+            stringToSet = companyName.toString();
+        }
         companyNameAndRole.setText(stringToSet);
     }
 

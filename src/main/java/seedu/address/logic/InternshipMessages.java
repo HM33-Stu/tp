@@ -36,23 +36,32 @@ public class InternshipMessages {
      */
     public static String format(Internship internship) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Company Name: ")
-                .append(internship.getCompanyName())
-                .append("; Location: ")
-                .append(internship.getLocation())
-                .append("; Description: ")
-                .append(internship.getDescription())
-                .append("; Role: ")
-                .append(internship.getRole())
-                .append("; Contact Name: ")
-                .append(internship.getContactName())
-                .append("; Contact Email: ")
-                .append(internship.getContactEmail())
-                .append("; Contact Number: ")
-                .append(internship.getContactNumber())
-                .append("; Application Status: ")
+        builder.append("Company Name: ")
+                .append(internship.getCompanyName());
+
+        internship.getLocation().ifPresent(location ->
+                builder.append("; Location: ").append(location));
+
+        builder.append("; Description: ")
+                .append(internship.getDescription());
+
+        internship.getRole().ifPresent(role ->
+                builder.append("; Role: ").append(role));
+
+        internship.getContactName().ifPresent(contactName ->
+                builder.append("; Contact Name: ").append(contactName));
+
+        internship.getContactEmail().ifPresent(contactEmail ->
+                builder.append("; Contact Email: ").append(contactEmail));
+
+        internship.getContactNumber().ifPresent(contactNumber ->
+                builder.append("; Contact Number: ").append(contactNumber));
+
+        builder.append("; Application Status: ")
                 .append(internship.getApplicationStatus());
+
         return builder.toString();
     }
+
 
 }
