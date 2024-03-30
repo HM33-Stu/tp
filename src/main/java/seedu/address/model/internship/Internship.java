@@ -31,14 +31,9 @@ public class Internship {
      */
     public Internship(CompanyName companyName, ContactName contactName, ContactEmail contactEmail,
                       ContactNumber contactNumber, Location location, ApplicationStatus applicationStatus,
-
                       Description description, Role role, Remark remark) {
         requireAllNonNull(companyName, applicationStatus, description);
-
-                      Description description, Role role, Remark remark, TaskList taskList) {
-        requireAllNonNull(companyName, contactName, contactEmail, contactNumber, location, applicationStatus,
-                description, role);
-
+        
         this.companyName = companyName;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
@@ -57,7 +52,7 @@ public class Internship {
     public ApplicationStatus getApplicationStatus() {
         return applicationStatus;
     }
-
+    
     public Description getDescription() {
         return description;
     }
