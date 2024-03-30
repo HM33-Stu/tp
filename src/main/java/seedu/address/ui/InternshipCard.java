@@ -15,6 +15,7 @@ import seedu.address.model.internship.Internship;
 import seedu.address.model.internship.Location;
 import seedu.address.model.internship.Remark;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.TaskList;
 
 /**
  * A UI component that displays information of a {@code Internship}.
@@ -54,6 +55,9 @@ public class InternshipCard extends UiPart<Region> {
     private Label poc;
     @FXML
     private Label remark;
+    @FXML
+    private Label tasks;
+
 
 
     /**
@@ -71,6 +75,10 @@ public class InternshipCard extends UiPart<Region> {
         setPocLabel(internship.getContactName().orElse(null), internship.getContactEmail().orElse(null),
                 internship.getContactNumber().orElse(null));
         setRemarkLabel(internship.getRemark());
+
+
+
+        setTasksLabel(internship.getTaskList());
 
     }
 
@@ -179,6 +187,15 @@ public class InternshipCard extends UiPart<Region> {
      */
     private void setRemarkLabel(Remark remark) {
         this.remark.setText(remark.toString());
+    }
+
+    /**
+     * Sets the task label to the given task list.
+     *
+     * @param tasks tasklist of the internship
+     */
+    private void setTasksLabel(TaskList tasks) {
+        this.tasks.setText("Tasks:\n" + tasks.toString());
     }
 
     protected Label getIdLabel() {

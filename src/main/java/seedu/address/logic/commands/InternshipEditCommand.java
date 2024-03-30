@@ -32,6 +32,7 @@ import seedu.address.model.internship.Internship;
 import seedu.address.model.internship.Location;
 import seedu.address.model.internship.Remark;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.TaskList;
 
 /**
  * Edits the details of an existing internship in the internship data.
@@ -121,8 +122,10 @@ public class InternshipEditCommand extends InternshipCommand {
         ContactNumber updatedContactNumber = editInternshipDescriptor.getContactNumber().orElse(null);
 
         Remark updatedRemark = editInternshipDescriptor.getRemark().orElse(internshipToEdit.getRemark());
+        // edit command cannot be used to edit task list
+        TaskList taskList = internshipToEdit.getTaskList();
         return new Internship(updatedCompanyName, updatedContactName, updatedContactEmail, updatedContactNumber,
-                updatedLocation, updatedApplicationStatus, updatedDescription, updatedRole, updatedRemark);
+                updatedLocation, updatedApplicationStatus, updatedDescription, updatedRole, updatedRemark, taskList);
     }
 
     @Override

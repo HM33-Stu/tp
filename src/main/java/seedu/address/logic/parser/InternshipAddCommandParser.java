@@ -24,6 +24,7 @@ import seedu.address.model.internship.Internship;
 import seedu.address.model.internship.Location;
 import seedu.address.model.internship.Remark;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.TaskList;
 
 /**
  * Parses input arguments and creates a new InternshipAddCommand object
@@ -62,8 +63,9 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
         Location loc = InternshipParserUtil.parseOptionalLocation(argMultimap.getValue(PREFIX_LOCATION));
         Role role = InternshipParserUtil.parseOptionalRole(argMultimap.getValue(PREFIX_ROLE));
         Remark remark = new Remark(""); // Add Command does not allow adding remarks immediately
+        TaskList taskList = new TaskList(); // Add Command does not allow adding tasks immediately (for now
 
-        Internship internship = new Internship(com, poc, email, phon, loc, status, desc, role, remark);
+        Internship internship = new Internship(com, poc, email, phon, loc, status, desc, role, remark, taskList);
 
         return new InternshipAddCommand(internship);
     }
