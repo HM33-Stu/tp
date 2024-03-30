@@ -69,7 +69,7 @@ public class InternshipBuilder {
 
         role = internshipToCopy.getRole().get();
 
-        role = internshipToCopy.getRole();
+        role = internshipToCopy.getRole().orElse(null);
         remark = internshipToCopy.getRemark();
         taskList = internshipToCopy.getTaskList();
 
