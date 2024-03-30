@@ -33,7 +33,6 @@ public class Internship {
                       ContactNumber contactNumber, Location location, ApplicationStatus applicationStatus,
                       Description description, Role role, Remark remark) {
         requireAllNonNull(companyName, applicationStatus, description);
-        
         this.companyName = companyName;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
