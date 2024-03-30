@@ -48,11 +48,11 @@ public class Internship {
     public CompanyName getCompanyName() {
         return companyName;
     }
-    
+
     public ApplicationStatus getApplicationStatus() {
         return applicationStatus;
     }
-    
+
     public Description getDescription() {
         return description;
     }
