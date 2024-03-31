@@ -117,9 +117,12 @@ public class InternshipEditCommand extends InternshipCommand {
         Location updatedLocation = editInternshipDescriptor.getLocation()
                 .orElse(null);
         Role updatedRole = editInternshipDescriptor.getRole().orElse(null);
-        ContactName updatedContactName = editInternshipDescriptor.getContactName().orElse(null);
-        ContactEmail updatedContactEmail = editInternshipDescriptor.getContactEmail().orElse(null);
-        ContactNumber updatedContactNumber = editInternshipDescriptor.getContactNumber().orElse(null);
+        ContactName updatedContactName = editInternshipDescriptor.getContactName()
+                .orElse(internshipToEdit.getContactName());
+        ContactEmail updatedContactEmail = editInternshipDescriptor.getContactEmail()
+                .orElse(internshipToEdit.getContactEmail());
+        ContactNumber updatedContactNumber = editInternshipDescriptor.getContactNumber()
+                .orElse(internshipToEdit.getContactNumber());
 
         Remark updatedRemark = editInternshipDescriptor.getRemark().orElse(internshipToEdit.getRemark());
         // edit command cannot be used to edit task list

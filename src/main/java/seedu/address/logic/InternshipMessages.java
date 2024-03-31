@@ -50,39 +50,17 @@ public class InternshipMessages {
         internship.getRole().ifPresent(role ->
                 builder.append("; Role: ").append(role));
 
-        internship.getContactName().ifPresent(contactName ->
-                builder.append("; Contact Name: ").append(contactName));
+        builder.append("; Contact Name: ")
+                .append(internship.getContactName());
 
-        internship.getContactEmail().ifPresent(contactEmail ->
-                builder.append("; Contact Email: ").append(contactEmail));
+        builder.append("; Contact Number: ")
+                .append(internship.getContactNumber());
 
-        internship.getContactNumber().ifPresent(contactNumber ->
-                builder.append("; Contact Number: ").append(contactNumber));
+        builder.append("; Contact Email: ")
+                .append(internship.getContactEmail());
 
         builder.append("; Application Status: ")
                 .append(internship.getApplicationStatus());
-
-
-        builder.append(" Company Name: ")
-                .append(internship.getCompanyName())
-                .append("; Location: ")
-                .append(internship.getLocation())
-                .append("; Description: ")
-                .append(internship.getDescription())
-                .append("; Role: ")
-                .append(internship.getRole())
-                .append("; Contact Name: ")
-                .append(internship.getContactName())
-                .append("; Contact Email: ")
-                .append(internship.getContactEmail())
-                .append("; Contact Number: ")
-                .append(internship.getContactNumber())
-                .append("; Application Status: ")
-                .append(internship.getApplicationStatus())
-                .append("; Remark: ")
-                .append(internship.getRemark())
-                .append("; Tasks: ")
-                .append(internship.getTaskList());
 
         return builder.toString();
     }

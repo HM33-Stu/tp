@@ -53,16 +53,16 @@ public class InternshipEditCommandParser implements InternshipParser<InternshipE
                     .getValue(PREFIX_COMPANY).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_NAME).isPresent()) {
-            editInternshipDescriptor.setContactName(InternshipParserUtil.parseOptionalContactName(argMultimap
-                    .getValue(PREFIX_CONTACT_NAME)));
+            editInternshipDescriptor.setContactName(InternshipParserUtil.parseContactName(argMultimap
+                    .getValue(PREFIX_CONTACT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_NUMBER).isPresent()) {
-            editInternshipDescriptor.setContactNumber(InternshipParserUtil.parseOptionalContactNumber(argMultimap
-                    .getValue(PREFIX_CONTACT_NUMBER)));
+            editInternshipDescriptor.setContactNumber(InternshipParserUtil.parseContactNumber(argMultimap
+                    .getValue(PREFIX_CONTACT_NUMBER).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_EMAIL).isPresent()) {
-            editInternshipDescriptor.setContactEmail(InternshipParserUtil.parseOptionalContactEmail(argMultimap
-                    .getValue(PREFIX_CONTACT_EMAIL)));
+            editInternshipDescriptor.setContactEmail(InternshipParserUtil.parseContactEmail(argMultimap
+                    .getValue(PREFIX_CONTACT_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editInternshipDescriptor.setLocation(InternshipParserUtil.parseOptionalLocation(argMultimap

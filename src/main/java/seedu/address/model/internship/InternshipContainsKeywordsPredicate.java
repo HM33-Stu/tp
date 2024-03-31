@@ -55,7 +55,7 @@ public class InternshipContainsKeywordsPredicate implements Predicate<Internship
                 .reduce((a, b) -> a || b).orElse(isMatchAll);
         boolean foundInContactName = contactNameKeywords.stream()
                 .map(set -> set.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(internship.getContactName().toString(), keyword)))
+                        StringUtil.containsWordIgnoreCase(internship.getContactName().contactName, keyword)))
                 .reduce((a, b) -> a || b).orElse(isMatchAll);
         boolean foundInLocation = locationKeywords.stream()
                 .map(set -> set.stream().anyMatch(keyword ->

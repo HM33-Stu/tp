@@ -71,9 +71,9 @@ public class JsonAdaptedInternship {
         companyName = source.getCompanyName().companyName;
         applicationStatus = source.getApplicationStatus().toString();
         description = source.getDescription().description;
-        contactName = source.getContactName().isPresent() ? source.getContactName().get().contactName : null;
-        contactEmail = source.getContactEmail().isPresent() ? source.getContactEmail().get().value : null;
-        contactNumber = source.getContactNumber().isPresent() ? source.getContactNumber().get().value : null;
+        contactName = source.getContactName().contactName;
+        contactEmail = source.getContactEmail().value;
+        contactNumber = source.getContactNumber().value;
         location = source.getLocation().toString().repeat(source.getLocation().isPresent() ? 1 : 0);
         role = source.getRole().isPresent() ? source.getRole().get().role : null;
         remark = source.getRemark().value;

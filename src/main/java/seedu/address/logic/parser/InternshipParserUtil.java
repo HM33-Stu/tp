@@ -85,20 +85,6 @@ public class InternshipParserUtil {
         return new ApplicationStatus(trimmedStatus);
     }
 
-    /**
-     * Parses a {@code String location} into a {@code Location}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code location} is invalid.
-     */
-    public static Location parseLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        if (!Location.isValidLocation(trimmedLocation)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
-        }
-        return new Location(trimmedLocation);
-    }
 
     /**
      * Parses a {@code Optional<String> location} into a {@code Location}.
@@ -118,21 +104,6 @@ public class InternshipParserUtil {
             throw new ParseException(Location.MESSAGE_CONSTRAINTS);
         }
         return new Location(trimmedLocation);
-    }
-
-    /**
-     * Parses a {@code String role} into a {@code Role}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code role} is invalid.
-     */
-    public static Role parseRole(String role) throws ParseException {
-        requireNonNull(role);
-        String trimmedRole = role.trim();
-        if (!Role.isValidRole(trimmedRole)) {
-            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
-        }
-        return new Role(trimmedRole);
     }
 
     /**
@@ -171,26 +142,6 @@ public class InternshipParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> contactName} into a {@code ContactName}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code contactName} is invalid.
-     */
-    public static ContactName parseOptionalContactName(Optional<String> contactName) throws ParseException {
-        if (contactName.isEmpty()) {
-            return null;
-        }
-        String trimmedContactName = contactName.get().trim();
-        if (trimmedContactName.isBlank()) {
-            return null;
-        }
-        if (!ContactName.isValidContactName(trimmedContactName)) {
-            throw new ParseException(ContactName.MESSAGE_CONSTRAINTS);
-        }
-        return new ContactName(trimmedContactName);
-    }
-
-    /**
      * Parses a {@code String contactNumber} into a {@code ContactNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -206,26 +157,6 @@ public class InternshipParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> contactNumber} into a {@code ContactNumber}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code contactNumber} is invalid.
-     */
-    public static ContactNumber parseOptionalContactNumber(Optional<String> contactNumber) throws ParseException {
-        if (contactNumber.isEmpty()) {
-            return null;
-        }
-        String trimmedContactNumber = contactNumber.get().trim();
-        if (trimmedContactNumber.isBlank()) {
-            return null;
-        }
-        if (!ContactNumber.isValidContactNumber(trimmedContactNumber)) {
-            throw new ParseException(ContactNumber.MESSAGE_CONSTRAINTS);
-        }
-        return new ContactNumber(trimmedContactNumber);
-    }
-
-    /**
      * Parses a {@code String contactEmail} into a {@code ContactEmail}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -234,26 +165,6 @@ public class InternshipParserUtil {
     public static ContactEmail parseContactEmail(String contactEmail) throws ParseException {
         requireNonNull(contactEmail);
         String trimmedContactEmail = contactEmail.trim();
-        if (!ContactEmail.isValidContactEmail(trimmedContactEmail)) {
-            throw new ParseException(ContactEmail.MESSAGE_CONSTRAINTS);
-        }
-        return new ContactEmail(trimmedContactEmail);
-    }
-
-    /**
-     * Parses a {@code Optional<String> contactEmail} into a {@code ContactEmail}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code contactEmail} is invalid.
-     */
-    public static ContactEmail parseOptionalContactEmail(Optional<String> contactEmail) throws ParseException {
-        if (contactEmail.isEmpty()) {
-            return null;
-        }
-        String trimmedContactEmail = contactEmail.get().trim();
-        if (trimmedContactEmail.isBlank()) {
-            return null;
-        }
         if (!ContactEmail.isValidContactEmail(trimmedContactEmail)) {
             throw new ParseException(ContactEmail.MESSAGE_CONSTRAINTS);
         }

@@ -35,9 +35,9 @@ public class EditInternshipDescriptorBuilder {
         descriptor.setLocation(internship.getLocation().orElse(null));
         descriptor.setDescription(internship.getDescription());
         descriptor.setRole(internship.getRole().orElse(null));
-        descriptor.setContactName(internship.getContactName().orElse(null));
-        descriptor.setContactEmail(internship.getContactEmail().orElse(null));
-        descriptor.setContactNumber(internship.getContactNumber().orElse(null));
+        descriptor.setContactName(internship.getContactName());
+        descriptor.setContactEmail(internship.getContactEmail());
+        descriptor.setContactNumber(internship.getContactNumber());
         descriptor.setApplicationStatus(internship.getApplicationStatus());
     }
 

@@ -72,11 +72,8 @@ public class InternshipCard extends UiPart<Region> {
         setStatusLabel(internship.getApplicationStatus());
         setDescriptionLabel(internship.getDescription());
         setLocationLabel(internship.getLocation().orElse(null));
-        setPocLabel(internship.getContactName().orElse(null), internship.getContactEmail().orElse(null),
-                internship.getContactNumber().orElse(null));
+        setPocLabel(internship.getContactName(), internship.getContactEmail(), internship.getContactNumber());
         setRemarkLabel(internship.getRemark());
-
-
 
         setTasksLabel(internship.getTaskList());
 
@@ -90,15 +87,8 @@ public class InternshipCard extends UiPart<Region> {
      * @param contactNumber phone number of the contact person under the Internship entry
      */
     private void setPocLabel(ContactName contactName, ContactEmail contactEmail, ContactNumber contactNumber) {
-        String contactNameStr = (contactName != null) ? contactName.toString() : "";
-        String contactEmailStr = (contactEmail != null) ? contactEmail.toString() : "";
-        String contactNumberStr = (contactNumber != null) ? contactNumber.toString() : "";
-
-        String stringToSet = "POC: " + String.join(" | ", contactNameStr, contactEmailStr, contactNumberStr);
-
-        if (contactName == null && contactEmail == null && contactNumber == null) {
-            stringToSet = "No POC found";
-        }
+        String stringToSet = "POC: " + contactName.toString() + " | "
+                + contactEmail.toString() + " | " + contactNumber.toString();
 
         poc.setText(stringToSet);
     }

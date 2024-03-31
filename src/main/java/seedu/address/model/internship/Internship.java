@@ -32,7 +32,7 @@ public class Internship {
     public Internship(CompanyName companyName, ContactName contactName, ContactEmail contactEmail,
                       ContactNumber contactNumber, Location location, ApplicationStatus applicationStatus,
                       Description description, Role role, Remark remark, TaskList taskList) {
-        requireAllNonNull(companyName, applicationStatus, description);
+        requireAllNonNull(companyName, applicationStatus, description, contactName, contactEmail, contactNumber);
         this.companyName = companyName;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
@@ -57,16 +57,16 @@ public class Internship {
         return description;
     }
 
-    public Optional<ContactName> getContactName() {
-        return Optional.ofNullable(contactName);
+    public ContactName getContactName() {
+        return contactName;
     }
 
-    public Optional<ContactEmail> getContactEmail() {
-        return Optional.ofNullable(contactEmail);
+    public ContactEmail getContactEmail() {
+        return contactEmail;
     }
 
-    public Optional<ContactNumber> getContactNumber() {
-        return Optional.ofNullable(contactNumber);
+    public ContactNumber getContactNumber() {
+        return contactNumber;
     }
 
     public Optional<Location> getLocation() {

@@ -43,7 +43,8 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
                 ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_CONTACT_NAME,
                         PREFIX_CONTACT_EMAIL, PREFIX_CONTACT_NUMBER, PREFIX_LOCATION, PREFIX_ROLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_CONTACT_NAME,
+                PREFIX_CONTACT_EMAIL, PREFIX_CONTACT_NUMBER)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InternshipAddCommand.MESSAGE_USAGE));
         }
 
@@ -54,12 +55,11 @@ public class InternshipAddCommandParser implements InternshipParser<InternshipAd
         CompanyName com = InternshipParserUtil.parseCompanyName(argMultimap.getValue(PREFIX_COMPANY).get());
         ApplicationStatus status = InternshipParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
         Description desc = InternshipParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        ContactName poc = InternshipParserUtil.parseContactName(argMultimap.getValue(PREFIX_CONTACT_NAME).get());
+        ContactEmail email = InternshipParserUtil.parseContactEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL).get());
+        ContactNumber phon = InternshipParserUtil.parseContactNumber(argMultimap.getValue(PREFIX_CONTACT_NUMBER).get());
 
         // Optional Fields
-        ContactName poc = InternshipParserUtil.parseOptionalContactName(argMultimap.getValue(PREFIX_CONTACT_NAME));
-        ContactEmail email = InternshipParserUtil.parseOptionalContactEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL));
-        ContactNumber phon = InternshipParserUtil.parseOptionalContactNumber(
-                argMultimap.getValue(PREFIX_CONTACT_NUMBER));
         Location loc = InternshipParserUtil.parseOptionalLocation(argMultimap.getValue(PREFIX_LOCATION));
         Role role = InternshipParserUtil.parseOptionalRole(argMultimap.getValue(PREFIX_ROLE));
         Remark remark = new Remark(""); // Add Command does not allow adding remarks immediately
