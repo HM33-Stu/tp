@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.InternshipModel;
 import seedu.address.model.ReadOnlyInternshipData;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -70,6 +71,14 @@ public class InternshipLogicManager implements InternshipLogic {
     @Override
     public ObservableList<Internship> getFilteredInternshipList() {
         return model.getFilteredInternshipList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered list of tasks that are due
+     */
+    @Override
+    public ObservableList<Task> getFilteredDueTaskList() {
+        return model.getFilteredDueTaskList();
     }
 
     @Override

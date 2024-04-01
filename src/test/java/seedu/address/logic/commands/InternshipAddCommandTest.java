@@ -23,6 +23,7 @@ import seedu.address.model.InternshipModel;
 import seedu.address.model.ReadOnlyInternshipData;
 import seedu.address.model.ReadOnlyInternshipUserPrefs;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 import seedu.address.testutil.InternshipBuilder;
 
 public class InternshipAddCommandTest {
@@ -125,6 +126,11 @@ public class InternshipAddCommandTest {
         }
 
         @Override
+        public void addDueTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setInternshipData(ReadOnlyInternshipData newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -151,6 +157,11 @@ public class InternshipAddCommandTest {
 
         @Override
         public ObservableList<Internship> getFilteredInternshipList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredDueTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 

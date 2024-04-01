@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyInternshipData;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface InternshipLogic {
 
     /** Returns an unmodifiable view of the filtered list of internships */
     ObservableList<Internship> getFilteredInternshipList();
+
+    /** Returns an unmodifiable view of the filtered list of tasks that are due */
+    ObservableList<Task> getFilteredDueTaskList();
 
     /**
      * Returns the user prefs' internship data file path.

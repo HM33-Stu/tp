@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 
 /**
  * Represents the in-memory model of the Internship data.
@@ -104,6 +105,16 @@ public class InternshipModelManager implements InternshipModel {
         updateFilteredInternshipList(PREDICATE_SHOW_ALL_INTERNSHIPS);
     }
 
+    /**
+     * Adds the given task.
+     *
+     * @param task must not already exist in the address book.
+     */
+    @Override
+    public void addDueTask(Task task){
+
+    }
+
     @Override
     public void setInternship(Internship target, Internship editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -119,6 +130,14 @@ public class InternshipModelManager implements InternshipModel {
     @Override
     public ObservableList<Internship> getFilteredInternshipList() {
         return filteredInternships;
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered archived task list.
+     */
+    @Override
+    public ObservableList<Task> getFilteredDueTaskList() {
+        return null;
     }
 
     @Override
