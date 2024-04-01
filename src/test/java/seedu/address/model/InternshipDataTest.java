@@ -28,6 +28,7 @@ import seedu.address.model.internship.Description;
 import seedu.address.model.internship.Internship;
 import seedu.address.model.internship.Location;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.Task;
 import seedu.address.testutil.InternshipBuilder;
 
 public class InternshipDataTest {
@@ -287,7 +288,10 @@ public class InternshipDataTest {
         public ObservableList<Internship> getInternshipList() {
             return internships;
         }
+
+        @Override
+        public ObservableList<Task> getDueTaskList() {
+            return null;
+        }
     }
 }
-
-

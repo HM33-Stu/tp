@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
+import seedu.address.model.internship.TaskList;
 import seedu.address.model.internship.UniqueInternshipList;
 
 /**
@@ -16,6 +18,7 @@ import seedu.address.model.internship.UniqueInternshipList;
 public class InternshipData implements ReadOnlyInternshipData {
 
     private final UniqueInternshipList internshipList;
+    private final TaskList dueTasks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class InternshipData implements ReadOnlyInternshipData {
      */
     {
         internshipList = new UniqueInternshipList();
+        dueTasks = new TaskList();
     }
 
     public InternshipData() {}
@@ -47,6 +51,7 @@ public class InternshipData implements ReadOnlyInternshipData {
     public void setInternships(List<Internship> internships) {
         this.internshipList.setInternships(internships);
     }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -105,6 +110,11 @@ public class InternshipData implements ReadOnlyInternshipData {
     @Override
     public ObservableList<Internship> getInternshipList() {
         return internshipList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getDueTaskList() {
+        return null;
     }
 
     @Override

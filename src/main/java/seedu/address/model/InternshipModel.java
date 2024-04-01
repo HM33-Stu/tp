@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 
 /**
  * The API of the Model component.
@@ -70,6 +71,12 @@ public interface InternshipModel {
     void addInternship(Internship internship);
 
     /**
+     * Adds the given task.
+     * @param task must not already exist in the address book.
+     */
+    void addDueTask(Task task);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -78,6 +85,11 @@ public interface InternshipModel {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Internship> getFilteredInternshipList();
+
+    /**
+     * Returns an unmodifiable view of the filtered archived task list.
+     */
+    ObservableList<Task> getFilteredDueTaskList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 
 /**
  * Unmodifiable view of an InternshipData
@@ -13,5 +14,6 @@ public interface ReadOnlyInternshipData {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Internship> getInternshipList();
+    ObservableList<Task> getDueTaskList();
 
 }
