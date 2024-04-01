@@ -100,6 +100,14 @@ public class Task {
     }
 
     /**
+     * Returns the deadline of the task.
+     * @return The deadline of the task, or null if the deadline is not set.
+     */
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    /**
      * Returns the task string.
      */
     @Override

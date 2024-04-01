@@ -2,6 +2,7 @@ package seedu.address.model.internship;
 
 import java.util.ArrayList;
 
+
 /**
  * Represents a list of tasks in the internship book.
  */
