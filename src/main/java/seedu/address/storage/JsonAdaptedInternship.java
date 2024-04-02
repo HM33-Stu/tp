@@ -60,16 +60,23 @@ public class JsonAdaptedInternship {
      * Converts a given {@code Internship} into this class for Jackson use.
      */
     public JsonAdaptedInternship(Internship source) {
+
+        // Mandatory fields
         companyName = source.getCompanyName().companyName;
         contactName = source.getContactName().contactName;
         contactEmail = source.getContactEmail().value;
         contactNumber = source.getContactNumber().value;
         applicationStatus = source.getApplicationStatus().toString();
-        location = source.getLocation().toString();
         description = source.getDescription().description;
-        role = source.getRole().role;
-        remark = source.getRemark().value;
+
+        // Handle optional fields
+        location = source.getLocation().map(Location::toString).orElse(null);
+        role = source.getRole().map(Role::toString).orElse(null);
+
+        // Remark field
+        remark = source.getRemark().toString();
     }
+
 
     /**
      * Converts this Jackson-friendly adapted internship object into the model's {@code Internship} object.
@@ -122,15 +129,6 @@ public class JsonAdaptedInternship {
         }
         final ApplicationStatus modelApplicationStatus = new ApplicationStatus(applicationStatus);
 
-        if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Location.class.getSimpleName()));
-        }
-        if (!Location.isValidLocation(location)) {
-            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
-        }
-        final Location modelLocation = new Location(location);
-
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
@@ -140,13 +138,23 @@ public class JsonAdaptedInternship {
         }
         final Description modelDescription = new Description(description);
 
+        final Role modelRole;
         if (role == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
-        }
-        if (!Role.isValidRole(role)) {
+            modelRole = null;
+        } else if (!Role.isValidRole(role)) {
             throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
+        } else {
+            modelRole = new Role(role);
         }
-        final Role modelRole = new Role(role);
+
+        final Location modelLocation;
+        if (location == null) {
+            modelLocation = null;
+        } else if (!Location.isValidLocation(location)) {
+            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
+        } else {
+            modelLocation = new Location(location);
+        }
 
         if (remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));

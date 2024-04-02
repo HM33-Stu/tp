@@ -57,10 +57,10 @@ public class InternshipBuilder {
         contactName = internshipToCopy.getContactName();
         contactEmail = internshipToCopy.getContactEmail();
         contactNumber = internshipToCopy.getContactNumber();
-        location = internshipToCopy.getLocation();
+        location = internshipToCopy.getLocation().get();
         applicationStatus = internshipToCopy.getApplicationStatus();
         description = internshipToCopy.getDescription();
-        role = internshipToCopy.getRole();
+        role = internshipToCopy.getRole().get();
     }
 
     /**

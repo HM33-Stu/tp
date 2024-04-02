@@ -3,6 +3,7 @@ package seedu.address.model.internship;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -30,8 +31,7 @@ public class Internship {
     public Internship(CompanyName companyName, ContactName contactName, ContactEmail contactEmail,
                       ContactNumber contactNumber, Location location, ApplicationStatus applicationStatus,
                       Description description, Role role, Remark remark) {
-        requireAllNonNull(companyName, contactName, contactEmail, contactNumber, location, applicationStatus,
-                description, role);
+        requireAllNonNull(companyName, contactName, contactEmail, contactNumber, applicationStatus, description);
         this.companyName = companyName;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
@@ -47,6 +47,14 @@ public class Internship {
         return companyName;
     }
 
+    public ApplicationStatus getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
     public ContactName getContactName() {
         return contactName;
     }
@@ -59,20 +67,12 @@ public class Internship {
         return contactNumber;
     }
 
-    public Location getLocation() {
-        return location;
+    public Optional<Location> getLocation() {
+        return Optional.ofNullable(location);
     }
 
-    public ApplicationStatus getApplicationStatus() {
-        return applicationStatus;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public Role getRole() {
-        return role;
+    public Optional<Role> getRole() {
+        return Optional.ofNullable(role);
     }
 
     public Remark getRemark() {
