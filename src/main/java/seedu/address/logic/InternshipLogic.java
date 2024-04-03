@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -9,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyInternshipData;
 import seedu.address.model.internship.Internship;
+import seedu.address.model.internship.Task;
 
 /**
  * API of the Logic component
@@ -61,4 +63,6 @@ public interface InternshipLogic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    List<Task> getDueTasks();
 }

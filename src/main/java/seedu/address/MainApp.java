@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ import seedu.address.model.InternshipModelManager;
 import seedu.address.model.InternshipUserPrefs;
 import seedu.address.model.ReadOnlyInternshipData;
 import seedu.address.model.ReadOnlyInternshipUserPrefs;
+import seedu.address.model.internship.Task;
 import seedu.address.model.util.InternshipSampleDataUtil;
 import seedu.address.storage.InternshipDataStorage;
 import seedu.address.storage.InternshipStorageManager;
@@ -172,6 +174,10 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting InternshipData " + MainApp.VERSION);
+
+        // Refresh the internship list
+        List<Task> dueTasks = logic.getDueTasks();
+
         ui.start(primaryStage);
     }
 
