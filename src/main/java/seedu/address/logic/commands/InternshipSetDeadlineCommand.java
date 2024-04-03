@@ -18,24 +18,20 @@ import seedu.address.model.internship.Internship;
 /**
  * Adds a deadline to a task in an internship, or replaces the deadline if there already is one.
  */
-public class InternshipAddDeadlineCommand extends InternshipCommand {
+public class InternshipSetDeadlineCommand extends InternshipCommand {
 
-    public static final String COMMAND_WORD = "adddeadline";
+    public static final String COMMAND_WORD = "setdeadline";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a deadline to the task of the internship "
             + "identified by the index number used in the displayed internship data. "
-            + "Parameters: INDEX_INTERNSHIP (must be a positive integer)" + PREFIX_SELECT_TASK
-            + " INDEX_TASK (must be a positive integer) "
+            + "Parameters: INDEX_INTERNSHIP (must be a positive integer)\n"
+            + PREFIX_SELECT_TASK + " INDEX_TASK (must be a positive integer)\n"
             + PREFIX_DEADLINE + " DEADLINE\n"
             + Deadline.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_SELECT_TASK + " 1 "
             + PREFIX_DEADLINE + " 20/04/2024";
 
     public static final String MESSAGE_ADD_DEADLINE_SUCCESS = "Deadline Added: %1$s";
-
-    public static final String MESSAGE_INVALID_DISPLAYED_TASK_INDEX = "Invalid task index.";
-
-    public static final String MESSAGE_EMPTY_DEADLINE = "Deadline cannot be blank!";
     private final Index internshipIndex;
     private final Index taskIndex;
     private final Deadline deadline;
@@ -45,7 +41,7 @@ public class InternshipAddDeadlineCommand extends InternshipCommand {
      * @param taskIndex index of the task in the selected internship to edit
      * @param deadline deadline of the task to be added
      */
-    public InternshipAddDeadlineCommand(Index internshipIndex, Index taskIndex, Deadline deadline) {
+    public InternshipSetDeadlineCommand(Index internshipIndex, Index taskIndex, Deadline deadline) {
         requireNonNull(internshipIndex);
         requireNonNull(taskIndex);
         requireNonNull(deadline);
@@ -64,17 +60,20 @@ public class InternshipAddDeadlineCommand extends InternshipCommand {
             throw new CommandException(InternshipMessages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
         }
 
-        Internship internshipToAddDeadline = lastShownList.get(internshipIndex.getZeroBased());
+        Internship internshipToSetDeadline = lastShownList.get(internshipIndex.getZeroBased());
 
-        if (taskIndex.getOneBased() > internshipToAddDeadline.getTaskList().getTaskListSize()) {
+        if (taskIndex.getOneBased() > internshipToSetDeadline.getTaskList().getTaskListSize()) {
             throw new CommandException(InternshipMessages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        internshipToAddDeadline.getTaskList().getTask(taskIndex.getZeroBased()).addDeadline(deadline);
+        internshipToSetDeadline.getTaskList().getTask(taskIndex.getZeroBased()).setDeadline(deadline);
+
+        // This is necessary to trigger the UI to update the displayed deadline
+        model.setInternship(internshipToSetDeadline, internshipToSetDeadline);
 
         model.updateFilteredInternshipList(PREDICATE_SHOW_ALL_INTERNSHIPS);
 
         return new CommandResult(String.format(MESSAGE_ADD_DEADLINE_SUCCESS,
-                InternshipMessages.format(internshipToAddDeadline)));
+                deadline));
     }
 
     @Override
@@ -84,14 +83,14 @@ public class InternshipAddDeadlineCommand extends InternshipCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof InternshipAddDeadlineCommand)) {
+        if (!(other instanceof InternshipSetDeadlineCommand)) {
             return false;
         }
 
-        InternshipAddDeadlineCommand otherAddDeadlineCommand = (InternshipAddDeadlineCommand) other;
-        return internshipIndex.equals(otherAddDeadlineCommand.internshipIndex)
-                && taskIndex.equals(otherAddDeadlineCommand.taskIndex)
-                && deadline.equals(otherAddDeadlineCommand.deadline);
+        InternshipSetDeadlineCommand otherSetDeadlineCommand = (InternshipSetDeadlineCommand) other;
+        return internshipIndex.equals(otherSetDeadlineCommand.internshipIndex)
+                && taskIndex.equals(otherSetDeadlineCommand.taskIndex)
+                && deadline.equals(otherSetDeadlineCommand.deadline);
     }
 
     @Override

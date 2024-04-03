@@ -96,6 +96,16 @@ public class InternshipLogicManager implements InternshipLogic {
     }
 
     @Override
+    public void setSelectedInternship(Internship internship) {
+        model.setSelectedInternship(internship);
+    }
+
+    @Override
+    public ObservableList<Internship> getSelectedInternship() {
+        return model.getSelectedInternship();
+    }
+
+    @Override
     public Path getInternshipDataFilePath() {
         return model.getInternshipDataFilePath();
     }
