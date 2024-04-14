@@ -67,11 +67,13 @@ public class InternshipLogicManagerTest {
         assertCommandSuccess(listCommand, InternshipListCommand.MESSAGE_SUCCESS, model);
     }
 
+
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
                 InternshipLogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
     }
+
 
     @Test
     public void execute_storageThrowsAdException_throwsCommandException() {
@@ -162,7 +164,7 @@ public class InternshipLogicManagerTest {
 
         logic = new InternshipLogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
+        // Triggers the saveInternshipData method by executing an add command
         String addCommand = InternshipUtil.getAddCommand(new InternshipBuilder(AMY).build());
         Internship expectedInternship = new InternshipBuilder(AMY).build();
         InternshipModelManager expectedModel = new InternshipModelManager();

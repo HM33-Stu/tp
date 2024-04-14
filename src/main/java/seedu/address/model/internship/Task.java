@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents an internship's Task in the internship book
+ * Represents an internship's Task in the internship data.
  */
 public class Task {
     public static final String MESSAGE_CONSTRAINTS =
@@ -55,8 +55,8 @@ public class Task {
 
     /**
      * Constructs a {@code Task}.
-     * @param task
-     * @param deadline
+     * @param task the string containing the task
+     * @param deadlineMap the map containing the deadline of the task
      * @param isDeadlineSet
      */
     @JsonCreator
@@ -85,16 +85,9 @@ public class Task {
     }
 
     /**
-     * Returns true if a given string is a valid task.
-     */
-    public String convertToJsonString() {
-        return "{\"task\": \"" + task + "\", \"deadline\": \"" + deadline + "\"}";
-    }
-
-    /**
      * Replace deadline with {@code deadline}.
      */
-    public void addDeadline(Deadline deadline) {
+    public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
         isDeadlineSet = true;
     }
@@ -110,6 +103,12 @@ public class Task {
             return task;
         }
     }
+
+    /**
+     * Returns if two tasks are equal. Checks if the task and deadline are the same.
+     * @param other the other object to compare to.
+     * @return if the two tasks are equal.
+     */
 
     @Override
     public boolean equals(Object other) {

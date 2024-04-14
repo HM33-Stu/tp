@@ -9,7 +9,7 @@ import seedu.address.model.InternshipUserPrefs;
 import seedu.address.model.ReadOnlyInternshipUserPrefs;
 
 /**
- * Represents a storage for {@link seedu.address.model.UserPrefs}.
+ * Represents a storage for {@link seedu.address.model.InternshipUserPrefs}.
  */
 public interface InternshipUserPrefsStorage {
 
@@ -27,7 +27,7 @@ public interface InternshipUserPrefsStorage {
     Optional<InternshipUserPrefs> readUserPrefs() throws DataLoadingException;
 
     /**
-     * Saves the given {@link seedu.address.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link seedu.address.model.ReadOnlyInternshipUserPrefs} to the storage.
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

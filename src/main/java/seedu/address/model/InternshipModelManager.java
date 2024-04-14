@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.Internship;
@@ -17,18 +19,19 @@ import seedu.address.model.internship.Internship;
  * Represents the in-memory model of the Internship data.
  */
 public class InternshipModelManager implements InternshipModel {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(InternshipModelManager.class);
 
     private final InternshipData internshipData;
     private final InternshipUserPrefs userPrefs;
-    private final FilteredList<Internship> filteredInternships;
+    private FilteredList<Internship> filteredInternships;
+    private SortedList<Internship> sortedInternships;
 
     // The internship that is currently selected. Even though it is a list, it should only ever show one internship.
     // It is set as a FilteredList, so it can work with the existing UI components.
     private FilteredList<Internship> selectedInternship;
 
     /**
-     * Initializes a ModelManager with the given internshipData and userPrefs.
+     * Initializes a InternshipModelManager with the given internshipData and userPrefs.
      */
     public InternshipModelManager(ReadOnlyInternshipData internshipData, ReadOnlyInternshipUserPrefs userPrefs) {
         requireAllNonNull(internshipData, userPrefs);
@@ -38,14 +41,13 @@ public class InternshipModelManager implements InternshipModel {
         this.internshipData = new InternshipData(internshipData);
         this.userPrefs = new InternshipUserPrefs(userPrefs);
         filteredInternships = new FilteredList<>(this.internshipData.getInternshipList());
+        sortedInternships = new SortedList<>(filteredInternships);
         selectedInternship = new FilteredList<>(this.internshipData.getInternshipList());
     }
 
     public InternshipModelManager() {
         this(new InternshipData(), new InternshipUserPrefs());
     }
-
-    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyInternshipUserPrefs userPrefs) {
@@ -75,12 +77,10 @@ public class InternshipModelManager implements InternshipModel {
     }
 
     @Override
-    public void setInternshipDataFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setInternshipDataFilePath(addressBookFilePath);
+    public void setInternshipDataFilePath(Path internshipDataFilePath) {
+        requireNonNull(internshipDataFilePath);
+        userPrefs.setInternshipDataFilePath(internshipDataFilePath);
     }
-
-    //=========== InternshipData ================================================================================
 
     @Override
     public void setInternshipData(ReadOnlyInternshipData internshipData) {
@@ -110,12 +110,10 @@ public class InternshipModelManager implements InternshipModel {
     }
 
     @Override
-    public void setInternship(Internship target, Internship editedPerson) {
-        requireAllNonNull(target, editedPerson);
-        internshipData.setInternship(target, editedPerson);
+    public void setInternship(Internship target, Internship editedInternship) {
+        requireAllNonNull(target, editedInternship);
+        internshipData.setInternship(target, editedInternship);
     }
-
-    //=========== Filtered Internship List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Internship} backed by the internal list of
@@ -123,9 +121,17 @@ public class InternshipModelManager implements InternshipModel {
      */
     @Override
     public ObservableList<Internship> getFilteredInternshipList() {
-        return filteredInternships;
+        return sortedInternships;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Internship} backed by the internal list of
+     * {@code InternshipData}
+     */
+    public void sortFilteredInternshipList(Comparator<Internship> comparator) {
+        requireNonNull(comparator);
+        sortedInternships.setComparator(comparator);
+    }
     @Override
     public void setSelectedInternship(Internship internship) {
         selectedInternship.setPredicate(internship::equals);

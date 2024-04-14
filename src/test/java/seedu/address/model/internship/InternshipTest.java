@@ -36,22 +36,29 @@ public class InternshipTest {
         // null -> returns false
         assertFalse(ALICE_MICROSOFT.isSameInternship(null));
 
-        // same company name, location, role, description but all other attributes different -> returns true
-        Internship editedAlice = new InternshipBuilder(ALICE_MICROSOFT)
-                .withContactName("John Doe").withContactEmail("johnDoe@gmail.com")
-                .withContactNumber("91234567").withApplicationStatus("to_apply").build();
+        // same mandatory fields but all other attributes different -> returns true
+        Internship editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withLocation("local")
+                .withRole("Backend Engineer").build();
         assertTrue(ALICE_MICROSOFT.isSameInternship(editedAlice));
 
         // different company name, all other attributes same -> returns false
         editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withCompanyName(VALID_COMPANY_NAME_BOB).build();
         assertFalse(ALICE_MICROSOFT.isSameInternship(editedAlice));
 
-        // different location, all other attributes same -> returns false
-        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withLocation("overseas").build();
+        // different contact name, all other attributes same -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withContactName("Alicia Paulina").build();
         assertFalse(ALICE_MICROSOFT.isSameInternship(editedAlice));
 
-        // different role, all other attributes same -> returns false
-        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withRole("Data Analyst").build();
+        // different contact number, all other attributes same -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withContactNumber("85462364").build();
+        assertFalse(ALICE_MICROSOFT.isSameInternship(editedAlice));
+
+        // different contact email, all other attributes same -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withContactEmail("alicer@exampler.com").build();
+        assertFalse(ALICE_MICROSOFT.isSameInternship(editedAlice));
+
+        // different application status, all other attributes same -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withApplicationStatus("rejected").build();
         assertFalse(ALICE_MICROSOFT.isSameInternship(editedAlice));
 
         // different description, all other attributes same -> returns false
@@ -92,5 +99,33 @@ public class InternshipTest {
         // different contact email -> returns false
         editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withContactEmail("johnDoe@gmail.com").build();
         assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different contact number -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withContactNumber("91234567").build();
+        assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different location -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withLocation("local").build();
+        assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different application status -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withApplicationStatus("to_apply").build();
+        assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different description -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withDescription("Software Engineer Intern").build();
+        assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different role -> returns false
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withRole("Software Engineer").build();
+        assertFalse(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different remark -> returns true
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withRemark("Good company").build();
+        assertTrue(ALICE_MICROSOFT.equals(editedAlice));
+
+        // different task list -> returns true
+        editedAlice = new InternshipBuilder(ALICE_MICROSOFT).withTaskList("Task 1;Task 2").build();
+        assertTrue(ALICE_MICROSOFT.equals(editedAlice));
     }
 }

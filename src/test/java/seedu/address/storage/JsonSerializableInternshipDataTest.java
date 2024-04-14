@@ -14,7 +14,6 @@ import seedu.address.model.InternshipData;
 import seedu.address.testutil.TypicalInternships;
 
 public class JsonSerializableInternshipDataTest {
-
     private static final Path TEST_DATA_FOLDER = Paths
             .get("src", "test", "data", "JsonSerializableInternshipDataTest");
     private static final Path TYPICAL_INTERNSHIPS_FILE = TEST_DATA_FOLDER
@@ -28,9 +27,9 @@ public class JsonSerializableInternshipDataTest {
     public void toModelType_typicalInternshipsFile_success() throws Exception {
         JsonSerializableInternshipData dataFromFile = JsonUtil.readJsonFile(TYPICAL_INTERNSHIPS_FILE,
                 JsonSerializableInternshipData.class).get();
-        InternshipData addressBookFromFile = dataFromFile.toModelType();
+        InternshipData internshipDataFromFile = dataFromFile.toModelType();
         InternshipData typicalInternshipsInternshipData = TypicalInternships.getTypicalInternshipData();
-        assertEquals(addressBookFromFile, typicalInternshipsInternshipData);
+        assertEquals(internshipDataFromFile, typicalInternshipsInternshipData);
     }
 
     @Test

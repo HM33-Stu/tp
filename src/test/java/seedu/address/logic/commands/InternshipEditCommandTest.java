@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.InternshipCommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.InternshipCommandTestUtil.DESC_BOB;
@@ -99,8 +100,9 @@ public class InternshipEditCommandTest {
     public void execute_filteredList_success() {
         showInternshipAtIndex(model, INDEX_FIRST_INTERNSHIP);
 
-        Internship personInFilteredList = model.getFilteredInternshipList().get(INDEX_FIRST_INTERNSHIP.getZeroBased());
-        Internship editedInternship = new InternshipBuilder(personInFilteredList)
+        Internship internshipInFilteredList = model.getFilteredInternshipList().get(
+                INDEX_FIRST_INTERNSHIP.getZeroBased());
+        Internship editedInternship = new InternshipBuilder(internshipInFilteredList)
                 .withCompanyName(VALID_COMPANY_NAME_BOB).build();
         InternshipEditCommand editCommand = new InternshipEditCommand(INDEX_FIRST_INTERNSHIP,
                 new EditInternshipDescriptorBuilder().withCompanyName(VALID_COMPANY_NAME_BOB).build());
@@ -128,11 +130,11 @@ public class InternshipEditCommandTest {
     public void execute_duplicateInternshipFilteredList_failure() {
         showInternshipAtIndex(model, INDEX_FIRST_INTERNSHIP);
 
-        // edit person in filtered list into a duplicate in address book
-        Internship personInList = model.getInternshipData().getInternshipList().get(INDEX_SECOND_INTERNSHIP
+        // edit internship in filtered list into a duplicate in internship data
+        Internship internshipInList = model.getInternshipData().getInternshipList().get(INDEX_SECOND_INTERNSHIP
                 .getZeroBased());
         InternshipEditCommand editCommand = new InternshipEditCommand(INDEX_FIRST_INTERNSHIP,
-                new EditInternshipDescriptorBuilder(personInList).build());
+                new EditInternshipDescriptorBuilder(internshipInList).build());
 
         assertCommandFailure(editCommand, model, InternshipEditCommand.MESSAGE_DUPLICATE_INTERNSHIP);
     }
@@ -149,19 +151,69 @@ public class InternshipEditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of internship data
      */
     @Test
     public void execute_invalidInternshipIndexFilteredList_failure() {
         showInternshipAtIndex(model, INDEX_FIRST_INTERNSHIP);
         Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of internship data list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipData().getInternshipList().size());
 
         InternshipEditCommand editCommand = new InternshipEditCommand(outOfBoundIndex,
                 new EditInternshipDescriptorBuilder().withCompanyName(VALID_COMPANY_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, InternshipMessages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_selectedInternshipBeingEdited_updatesSelectedInternship() {
+        Internship internshipInFilteredList = model.getFilteredInternshipList()
+                .get(INDEX_FIRST_INTERNSHIP.getZeroBased());
+
+        model.setSelectedInternship(internshipInFilteredList); // set selected internship to the first internship
+
+        Internship editedInternship = new InternshipBuilder(internshipInFilteredList)
+                .withCompanyName("Microhard").build();
+        InternshipEditCommand editCommand = new InternshipEditCommand(INDEX_FIRST_INTERNSHIP,
+                new EditInternshipDescriptorBuilder().withCompanyName("Microhard").build());
+
+        String expectedMessage = String.format(InternshipEditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
+                InternshipMessages.format(editedInternship));
+
+        InternshipModel expectedModel = new InternshipModelManager(new InternshipData(model.getInternshipData()),
+                new InternshipUserPrefs());
+        expectedModel.setInternship(model.getFilteredInternshipList().get(0), editedInternship);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+        assertEquals(model.getSelectedInternship().get(0), editedInternship);
+    }
+
+    @Test
+    public void execute_nonSelectedInternshipBeingEdited_noUpdateToSelectedInternship() {
+        Internship internshipInFilteredList = model.getFilteredInternshipList()
+                .get(INDEX_FIRST_INTERNSHIP.getZeroBased());
+
+        // set selected internship to the second internship, which is not the same as the first
+        model.setSelectedInternship(model.getFilteredInternshipList().get(INDEX_SECOND_INTERNSHIP.getZeroBased()));
+
+        Internship editedInternship = new InternshipBuilder(internshipInFilteredList)
+                .withCompanyName("Microhard").build();
+        InternshipEditCommand editCommand = new InternshipEditCommand(INDEX_FIRST_INTERNSHIP,
+                new EditInternshipDescriptorBuilder().withCompanyName("Microhard").build());
+
+        String expectedMessage = String.format(InternshipEditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
+                InternshipMessages.format(editedInternship));
+
+        InternshipModel expectedModel = new InternshipModelManager(new InternshipData(model.getInternshipData()),
+                new InternshipUserPrefs());
+        expectedModel.setInternship(model.getFilteredInternshipList().get(0), editedInternship);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+        assertNotEquals(model.getSelectedInternship().get(0), editedInternship);
+        assertEquals(model.getSelectedInternship().get(0), model.getFilteredInternshipList().get(1));
     }
 
     @Test

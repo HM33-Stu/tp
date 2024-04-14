@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.logic.Messages;
+import seedu.address.logic.InternshipMessages;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -72,7 +72,22 @@ public class ArgumentMultimap {
                 .toArray(Prefix[]::new);
 
         if (duplicatedPrefixes.length > 0) {
-            throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
+            throw new ParseException(InternshipMessages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
+        }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public void verifyNoExtraArguments(int validArgs) throws IllegalArgumentException {
+        int count = 0;
+        for (List<String> values : argMultimap.values()) {
+            count += values.size();
+        }
+        if (count > validArgs) {
+            throw new IllegalArgumentException("Extra arguments provided. Only "
+                    + validArgs + " arguments are allowed.");
         }
     }
 }
